@@ -161,9 +161,15 @@
       return;
     }
     stack.style.paddingBottom = "48px";
-    var third = cards[Math.min(2, cards.length - 1)];
-    var delta = (index.clientHeight - third.offsetHeight - RESERVE) - third.offsetTop;
-    if (delta > 0) who.style.minHeight = (who.offsetHeight + delta) + "px";
+    /* Rest with up to three full cards; if the window is too short for three,
+       settle on two (or one) so no card is caught halfway into the deck. */
+    for (var k = Math.min(2, cards.length - 1); k >= 0; k--) {
+      var delta = (index.clientHeight - cards[k].offsetHeight - RESERVE) - cards[k].offsetTop;
+      if (delta >= 0 || k === 0) {
+        if (delta > 0) who.style.minHeight = (who.offsetHeight + delta) + "px";
+        break;
+      }
+    }
     updateStack();
   }
   index.addEventListener("scroll", updateStack, { passive: true });
