@@ -38,7 +38,7 @@ body {
   font-size: 15px;
   line-height: 1.45;
   display: grid;
-  grid-template-columns: clamp(248px, 27vw, 330px) minmax(0, 1fr);
+  grid-template-columns: clamp(270px, 30vw, 440px) minmax(0, 1fr);
   gap: 20px;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
@@ -67,7 +67,7 @@ a { color: inherit; }
 }
 .statement {
   margin: 0;
-  font-size: 15.5px; line-height: 1.42; font-weight: 400;
+  font-size: clamp(15.5px, 1.35vw, 18px); line-height: 1.42; font-weight: 400;
 }
 .statement em { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 1.06em; }
 .label {
