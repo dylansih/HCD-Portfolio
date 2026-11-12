@@ -123,7 +123,7 @@
      edge and rise into place as the column scrolls. */
   var index = document.querySelector(".index"), who = document.querySelector(".who");
   var cards = stack.querySelectorAll(".card");
-  var RESERVE = 74, PEEK = 30, SHRINK = 0.17, GAP = 8;
+  var RESERVE = 84, PEEK = 34, SHRINK = 0.17, GAP = 8;
   function wide() { return !window.matchMedia("(max-width: 620px)").matches; }
   function updateStack() {
     if (!wide()) return;
