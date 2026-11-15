@@ -181,6 +181,24 @@ mark { background: linear-gradient(transparent 58%, var(--mark) 58%); color: inh
 .next { border-top: 1px solid var(--line); padding-top: 22px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 14px; }
 .next a { text-underline-offset: 3px; }
 
+/* ---------- Case study media ---------- */
+.thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; display: block; }
+.preview-tile { overflow: hidden; }
+.preview-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero { margin: 0; }
+.hero img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 14px; display: block; }
+.fig { margin: 0; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.fig img, .fig video { width: 100%; height: auto; border-radius: 14px; display: block; background: var(--card); }
+.fig figcaption { font-size: 13px; color: var(--ink-3); }
+.fig-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; align-items: start; }
+.people { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.people img { width: 100%; height: auto; display: block; background: var(--card); border-radius: 14px; }
+.quote { margin: 0; font-size: clamp(19px, 2vw, 24px); line-height: 1.35; letter-spacing: -.01em; max-width: 34ch; }
+.hmw { background: var(--card); border-radius: 14px; padding: 20px 22px; display: flex; flex-direction: column; gap: 8px; max-width: 62ch; }
+.hmw p { font-size: 18px; line-height: 1.45; }
+.plain { margin: 0; padding-left: 20px; font-size: 17px; line-height: 1.55; max-width: 62ch; }
+@media (max-width: 620px) { .people { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
 /* ---------- Narrow screens ---------- */
 @media (max-width: 620px) {
   html, body { height: auto; }
