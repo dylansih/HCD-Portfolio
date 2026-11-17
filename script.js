@@ -4,6 +4,7 @@
     nest: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 24c0 10 8 16 18 16s18-6 18-16"/><path d="M11 25c0 7 6 11 13 11s13-4 13-11"/><path d="M17 26c0 3 3 5 7 5s7-2 7-5"/><circle cx="24" cy="13" r="4"/></svg>',
     shield: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><path d="M24 6l15 5v12c0 9-6 15-15 19-9-4-15-10-15-19V11z"/><path d="M24 14v20M16 23h16"/></svg>',
     grid: '<svg viewBox="0 0 48 48" fill="currentColor" stroke="none"><circle cx="12" cy="12" r="3.5"/><circle cx="24" cy="12" r="3.5"/><circle cx="36" cy="12" r="3.5"/><circle cx="12" cy="24" r="3.5"/><circle cx="24" cy="24" r="5.5"/><circle cx="36" cy="24" r="3.5"/><circle cx="12" cy="36" r="3.5"/><circle cx="24" cy="36" r="3.5"/><circle cx="36" cy="36" r="3.5"/></svg>',
+    heat: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 27V11a4 4 0 0 1 8 0v16a8 8 0 1 1-8 0z"/><path d="M24 18v14"/><circle cx="24" cy="34" r="2.5" fill="currentColor" stroke="none"/><path d="M35 12h5M35 19h5M35 26h5"/></svg>',
     sun: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 32a12 12 0 0 1 24 0"/><path d="M5 32h38M11 39h26"/><path d="M24 8v6M8.5 16.5l4 4M39.5 16.5l-4 4"/></svg>'
   };
 
@@ -44,11 +45,18 @@
       tags: ["Field research"],
       role: "To add", team: "To add", time: "Ongoing",
       methods: "To add",
-      lede: "Needfinding in a senior living community." }
+      lede: "Needfinding in a senior living community." },
+    { id: "santa-clara", h: 10, glyph: "heat", title: "Santa Clara County", status: "In progress",
+      client: "Stanford d.school",
+      line: "Reducing deaths and hospitalizations during heat waves.",
+      tags: ["Desk research", "Systems design"],
+      role: "To add", team: "To add", time: "Fall 2026, ongoing",
+      methods: "To add",
+      lede: "How can we reduce deaths and hospitalizations in Santa Clara County during heat waves?" }
   ];
 
   /* Display order: most recent first, in-progress work at the top. */
-  var ORDER = ["sunrise", "student-study", "larp", "give-and-grow", "whats-nest"];
+  var ORDER = ["sunrise", "santa-clara", "student-study", "larp", "give-and-grow", "whats-nest"];
   P.sort(function (a, b) { return ORDER.indexOf(a.id) - ORDER.indexOf(b.id); });
 
   var stack = document.getElementById("stack");
