@@ -10,8 +10,8 @@
 
   var P = [
     { id: "give-and-grow", h: 222, glyph: "exchange", title: "Give & Grow",
-      thumb: "images/give-and-grow/thumb.jpg", hero: "images/give-and-grow/north-star-line-concept.jpg",
-      heroAlt: "Concept illustration of two founders talking across a table on a train",
+      thumb: "images/give-and-grow/nasdaq-thumb.png", hero: "images/give-and-grow/nasdaq-hero.png",
+      heroAlt: "Nasdaq logo", logo: true,
       client: "Nasdaq Entrepreneurial Center",
       line: "Founders want to mentor. What stops them is time.",
       tags: ["In-depth interviews", "Synthesis", "Live prototype tests"],
@@ -68,14 +68,14 @@
   document.getElementById("count").textContent = P.length;
   stack.innerHTML = P.map(function (p, i) {
     return '<li><a class="card" href="#' + p.id + '" data-id="' + p.id + '" style="--i:' + i + ';--h:' + p.h + '">' +
-      '<span class="thumb">' + (p.thumb ? '<img src="' + p.thumb + '" alt="">' : G[p.glyph]) + '</span>' +
+      '<span class="thumb' + (p.logo ? " logo" : "") + '">' + (p.thumb ? '<img src="' + p.thumb + '" alt="">' : G[p.glyph]) + '</span>' +
       '<span style="min-width:0"><span class="card-title">' + esc(p.title) + '</span>' +
       '<span class="card-line">' + (p.status ? '<span class="status">' + p.status + ' · </span>' : '') + esc(p.line) + '</span></span></a></li>';
   }).join("");
 
   function previewHTML(p) {
     return '<div class="preview" style="--h:' + p.h + '">' +
-      '<div class="preview-tile">' + (p.hero ? '<img src="' + p.hero + '" alt="' + esc(p.heroAlt || "") + '">' : G[p.glyph]) + '</div>' +
+      '<div class="preview-tile' + (p.logo ? " logo" : "") + '">' + (p.hero ? '<img src="' + p.hero + '" alt="' + esc(p.heroAlt || "") + '">' : G[p.glyph]) + '</div>' +
       '<div class="preview-text"><div><span class="label">' + esc(p.client) + '</span>' +
       '<h2>' + esc(p.title) + '</h2><p>' + esc(p.line) + '</p></div>' +
       '<a class="open" href="#' + p.id + '">' + "Read Case Study" + ' <span aria-hidden="true">→</span></a></div></div>';
@@ -97,7 +97,7 @@
       '<h1>' + esc(p.title) + '</h1><p class="lede">' + p.lede + '</p>' +
       '<dl class="meta"><div><dt>My role</dt><dd>' + esc(p.role) + '</dd></div><div><dt>Team</dt><dd>' + esc(p.team) + '</dd></div>' +
       '<div><dt>Timeline</dt><dd>' + esc(p.time) + '</dd></div><div><dt>Methods</dt><dd>' + esc(p.methods) + '</dd></div></dl></header>' +
-      (p.hero ? '<figure class="hero"><img src="' + p.hero + '" alt="' + esc(p.heroAlt || "") + '"></figure>'
+      (p.hero ? '<figure class="hero' + (p.logo ? " logo" : "") + '"><img src="' + p.hero + '" alt="' + esc(p.heroAlt || "") + '"></figure>'
                 : '<figure class="ph tall">Hero image for ' + esc(p.title) + '</figure>') + body +
       '<div class="next"><a href="#home">All projects</a><a href="#' + next.id + '">Next: ' + esc(next.title) + ' →</a></div></article>';
   }
@@ -116,12 +116,27 @@
   peek.setAttribute("aria-hidden", "true");
   document.body.appendChild(peek);
 
+  /* Scroll animation: content starts slightly small and transparent, then
+     grows to full size as it enters view (the "scale, slow" setting). */
+  var io = null;
+  function reveal(root) {
+    if (io) { io.disconnect(); io = null; }
+    if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.05, rootMargin: "0px 0px -5% 0px" });
+    var els = root.querySelectorAll(".case-head > *, .hero, .case > .ph, .sec > h2, .sec .body > *, .next");
+    for (var i = 0; i < els.length; i++) { els[i].classList.add("reveal"); io.observe(els[i]); }
+  }
+
   var reading = false;
   function route() {
     var p = byId(location.hash.slice(1));
     reading = !!p;
     document.body.classList.toggle("reading", reading);
-    if (p) { panel.innerHTML = caseHTML(p); setCurrent(p.id); active = p; }
+    if (p) { panel.innerHTML = caseHTML(p); setCurrent(p.id); active = p; reveal(panel); }
     else { panel.innerHTML = previewHTML(active); setCurrent(null); }
     peek.hidden = true;
     panel.scrollTop = 0;
