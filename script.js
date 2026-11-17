@@ -16,7 +16,7 @@
       tags: ["In-depth interviews", "Synthesis", "Live prototype tests"],
       role: "Needfinding lead", team: "3 designers, Stanford d.school", time: "4 weeks",
       methods: "In-depth interviews, empathy maps, 2x2s, journey maps, live prototype tests",
-      lede: 'Founders already want to mentor. <mark>What stops them is time.</mark>', full: true },
+      lede: 'Founders already want to mentor. What stops them is time.', full: true },
     { id: "whats-nest", h: 24, glyph: "nest", title: "What's Nest",
       client: "Stanford d.school",
       line: "An app for mothers whose children have just left home.",
@@ -102,6 +102,12 @@
     }
   }
 
+  var peek = document.createElement("div");
+  peek.className = "peek";
+  peek.hidden = true;
+  peek.setAttribute("aria-hidden", "true");
+  document.body.appendChild(peek);
+
   var reading = false;
   function route() {
     var p = byId(location.hash.slice(1));
@@ -109,19 +115,31 @@
     document.body.classList.toggle("reading", reading);
     if (p) { panel.innerHTML = caseHTML(p); setCurrent(p.id); active = p; }
     else { panel.innerHTML = previewHTML(active); setCurrent(null); }
+    peek.hidden = true;
     panel.scrollTop = 0;
     if (window.matchMedia("(max-width: 620px)").matches) window.scrollTo(0, 0);
   }
 
   function hover(e) {
-    if (reading) return;
     var a = e.target.closest ? e.target.closest(".card") : null;
     if (!a) return;
     var p = byId(a.getAttribute("data-id"));
-    if (p && p !== active) { active = p; panel.innerHTML = previewHTML(p); }
+    if (!p) return;
+    if (reading) {
+      /* With a case study open, hovering another tab previews it on top; the
+         case study underneath keeps its place and returns when the cursor leaves. */
+      if (p === active) { peek.hidden = true; return; }
+      if (peek.getAttribute("data-id") !== p.id) { peek.innerHTML = previewHTML(p); peek.setAttribute("data-id", p.id); }
+      peek.hidden = false;
+      return;
+    }
+    if (p !== active) { active = p; panel.innerHTML = previewHTML(p); }
   }
+  function unhover() { peek.hidden = true; }
   stack.addEventListener("mouseover", hover);
   stack.addEventListener("focusin", hover);
+  stack.addEventListener("mouseleave", unhover);
+  stack.addEventListener("focusout", unhover);
   /* Card stack: three cards rest in view, the rest wait as a deck at the bottom
      edge and rise into place as the column scrolls. */
   var index = document.querySelector(".index"), who = document.querySelector(".who");
