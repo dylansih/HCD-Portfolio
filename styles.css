@@ -208,9 +208,11 @@ a { color: inherit; }
 .interviewees { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
 .interviewee { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0; }
 /* Persona tiles match the Give & Grow persona size; each sits centered over its own notes board */
-.interviewee .persona { width: 67.5%; aspect-ratio: 1; object-fit: contain; background: var(--card); border-radius: 14px; display: block; }
+.interviewee .persona { width: 75%; aspect-ratio: 1; object-fit: contain; background: var(--card); border-radius: 14px; display: block; }
 .interviewee > a { width: 100%; display: block; }
 .interviewee .board { width: 100%; height: auto; display: block; border-radius: 10px; background: #fff; }
+.interviewees.four { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.interviewees.four .persona { width: 100%; }
 .who-name { font-size: 13px; color: var(--ink-3); }
 .ext { font-size: 15px; text-underline-offset: 3px; }
 

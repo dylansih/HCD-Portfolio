@@ -12,6 +12,7 @@
     { id: "give-and-grow", h: 222, glyph: "exchange", title: "Give & Grow",
       thumb: "images/give-and-grow/nasdaq-thumb.png", hero: "images/give-and-grow/nasdaq-hero.png",
       heroAlt: "Nasdaq logo", logo: true,
+      pageHero: "images/give-and-grow/hero-give-and-grow.jpg", pageHeroAlt: "Give & Grow: Nasdaq Center Mentor Rewards and Recognition Program",
       client: "Nasdaq Entrepreneurial Center",
       line: "Founders want to mentor. What stops them is time.",
       tags: ["In-depth interviews", "Synthesis", "Live prototype tests"],
@@ -99,7 +100,8 @@
       '<h1>' + esc(p.title) + '</h1><p class="lede">' + p.lede + '</p>' +
       '<dl class="meta"><div><dt>My role</dt><dd>' + esc(p.role) + '</dd></div><div><dt>Team</dt><dd>' + esc(p.team) + '</dd></div>' +
       '<div><dt>Timeline</dt><dd>' + esc(p.time) + '</dd></div><div><dt>Methods</dt><dd>' + esc(p.methods) + '</dd></div></dl></header>' +
-      (p.hero ? '<figure class="hero' + (p.logo ? " logo" : "") + '"><img src="' + p.hero + '" alt="' + esc(p.heroAlt || "") + '"></figure>'
+      (p.pageHero ? '<figure class="hero"><img src="' + p.pageHero + '" alt="' + esc(p.pageHeroAlt || "") + '"></figure>'
+       : p.hero ? '<figure class="hero' + (p.logo ? " logo" : "") + '"><img src="' + p.hero + '" alt="' + esc(p.heroAlt || "") + '"></figure>'
                 : '<figure class="ph tall">Hero image for ' + esc(p.title) + '</figure>') + body +
       '<div class="next"><a href="#home">All projects</a><a href="#' + next.id + '">Next: ' + esc(next.title) + ' →</a></div></article>';
   }
