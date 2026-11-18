@@ -10,3 +10,5 @@ A plain static site with no build step.
 - `images/`: project images
 
 To preview locally, open `index.html` in a browser.
+
+After changing `styles.css` or `script.js`, bump the `?v=` number on their links in `index.html` so visitors' browsers fetch the new files.
