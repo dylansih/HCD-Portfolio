@@ -24,16 +24,16 @@
       client: "Stanford d.school",
       line: "An app for mothers whose children have just left home.",
       tags: ["Interviews", "Personas", "Figma prototype"],
-      role: "Design lead", team: "2 designers, Stanford d.school", time: "To add",
-      methods: "Interviews, personas, empathy maps, 2x2s, ideation sketches, prototype tests",
+      role: "Design lead", team: "3 designers, Stanford d.school", time: "Fall 2025",
+      methods: "Interviews, clustering, empathy map, 2x2s, journey map, prototype tests",
       lede: "For new empty nesters, belonging didn't come from meeting more people. It came from having someone to care for.", full: true },
     { id: "larp", h: 152, glyph: "shield", title: "Moccasins: LARP",
       client: "Stanford d.school",
-      line: "How live-action role-play helps players practice social life.",
+      line: "Immersion with a live-action role-play community.",
       tags: ["Immersion", "Observation", "Interviews"],
       role: "Co-researcher", team: "2 designers, Stanford d.school", time: "Fall 2026",
       methods: "Participant observation, interviews, double-layered Venn diagram, needs hierarchy",
-      lede: "LARP players use the rules of the game to practice a social world that doesn't come intuitively to them.", full: true },
+      lede: "An immersion study of a Bay Area live-action role-play community, through interviews and playing alongside its players.", full: true },
     { id: "student-study", h: 280, glyph: "grid", title: "College student study", status: "In progress",
       client: "Personal project",
       line: "A self-directed needfinding project with college students.",
@@ -129,9 +129,38 @@
         if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
       });
     }, { threshold: 0.05, rootMargin: "0px 0px -5% 0px" });
-    var els = root.querySelectorAll(".case-head > *, .hero, .case > .ph, .sec > h2, .sec .body > *, .next");
+    var els = root.querySelectorAll(".case-head > *, .hero, .case > .ph, .sec > h2, .sec .body > *, .interviewee, .next");
     for (var i = 0; i < els.length; i++) { els[i].classList.add("reveal"); io.observe(els[i]); }
   }
+
+  /* Interview clips: one shared player, a compact play/pause button per clip. */
+  var clipAudio = new Audio(), clipBtn = null;
+  function fmt(t) { t = Math.max(0, Math.round(t)); return Math.floor(t / 60) + ":" + ("0" + (t % 60)).slice(-2); }
+  function stopClip() {
+    clipAudio.pause();
+    if (clipBtn) { clipBtn.classList.remove("playing"); clipBtn.style.setProperty("--p", 0); clipBtn.querySelector(".clip-text").textContent = "Listen"; clipBtn = null; }
+  }
+  clipAudio.addEventListener("timeupdate", function () {
+    if (!clipBtn || !clipAudio.duration) return;
+    clipBtn.style.setProperty("--p", clipAudio.currentTime / clipAudio.duration);
+    clipBtn.querySelector(".clip-time").textContent = fmt(clipAudio.duration - clipAudio.currentTime);
+  });
+  clipAudio.addEventListener("ended", function () { var b = clipBtn; stopClip(); if (b) b.querySelector(".clip-time").textContent = fmt(clipAudio.duration); });
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest ? e.target.closest(".clip") : null;
+    if (!b) return;
+    if (clipBtn === b) {
+      if (clipAudio.paused) { clipAudio.play(); b.classList.add("playing"); b.querySelector(".clip-text").textContent = "Pause"; }
+      else { clipAudio.pause(); b.classList.remove("playing"); b.querySelector(".clip-text").textContent = "Listen"; }
+      return;
+    }
+    stopClip();
+    clipBtn = b;
+    clipAudio.src = b.getAttribute("data-src");
+    clipAudio.play().catch(function () {});
+    b.classList.add("playing");
+    b.querySelector(".clip-text").textContent = "Pause";
+  });
 
   var reading = false;
   function route() {
@@ -141,6 +170,7 @@
     if (p) { panel.innerHTML = caseHTML(p); setCurrent(p.id); active = p; reveal(panel); }
     else { panel.innerHTML = previewHTML(active); setCurrent(null); }
     peek.hidden = true;
+    stopClip();
     panel.scrollTop = 0;
     if (window.matchMedia("(max-width: 620px)").matches) window.scrollTo(0, 0);
   }
