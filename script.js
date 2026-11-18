@@ -133,35 +133,6 @@
     for (var i = 0; i < els.length; i++) { els[i].classList.add("reveal"); io.observe(els[i]); }
   }
 
-  /* Interview clips: one shared player, a compact play/pause button per clip. */
-  var clipAudio = new Audio(), clipBtn = null;
-  function fmt(t) { t = Math.max(0, Math.round(t)); return Math.floor(t / 60) + ":" + ("0" + (t % 60)).slice(-2); }
-  function stopClip() {
-    clipAudio.pause();
-    if (clipBtn) { clipBtn.classList.remove("playing"); clipBtn.style.setProperty("--p", 0); clipBtn.querySelector(".clip-text").textContent = "Listen"; clipBtn = null; }
-  }
-  clipAudio.addEventListener("timeupdate", function () {
-    if (!clipBtn || !clipAudio.duration) return;
-    clipBtn.style.setProperty("--p", clipAudio.currentTime / clipAudio.duration);
-    clipBtn.querySelector(".clip-time").textContent = fmt(clipAudio.duration - clipAudio.currentTime);
-  });
-  clipAudio.addEventListener("ended", function () { var b = clipBtn; stopClip(); if (b) b.querySelector(".clip-time").textContent = fmt(clipAudio.duration); });
-  document.addEventListener("click", function (e) {
-    var b = e.target.closest ? e.target.closest(".clip") : null;
-    if (!b) return;
-    if (clipBtn === b) {
-      if (clipAudio.paused) { clipAudio.play(); b.classList.add("playing"); b.querySelector(".clip-text").textContent = "Pause"; }
-      else { clipAudio.pause(); b.classList.remove("playing"); b.querySelector(".clip-text").textContent = "Listen"; }
-      return;
-    }
-    stopClip();
-    clipBtn = b;
-    clipAudio.src = b.getAttribute("data-src");
-    clipAudio.play().catch(function () {});
-    b.classList.add("playing");
-    b.querySelector(".clip-text").textContent = "Pause";
-  });
-
   var reading = false;
   function route() {
     var p = byId(location.hash.slice(1));
@@ -170,7 +141,6 @@
     if (p) { panel.innerHTML = caseHTML(p); setCurrent(p.id); active = p; reveal(panel); }
     else { panel.innerHTML = previewHTML(active); setCurrent(null); }
     peek.hidden = true;
-    stopClip();
     panel.scrollTop = 0;
     if (window.matchMedia("(max-width: 620px)").matches) window.scrollTo(0, 0);
   }
