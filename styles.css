@@ -191,6 +191,9 @@ a { color: inherit; }
 /* Logo covers: the mark sits centered on a light tile instead of filling it */
 .preview-tile.logo, .hero.logo { background: #fafafa; border-radius: 14px; }
 .preview-tile.logo img, .hero.logo img { object-fit: contain; mix-blend-mode: multiply; }
+/* Heroes that must show whole (a logo panel) sit on their own background color */
+.preview-tile.fit { background: #1e1e1e; }
+.preview-tile.fit img { object-fit: contain; }
 .thumb.logo { background: #fff; }
 .thumb.logo img { object-fit: contain; }
 /* Scroll animation */
