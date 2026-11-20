@@ -34,7 +34,7 @@
       line: "Immersion with a live-action role-play community.",
       tags: ["Immersion", "Observation", "Interviews"],
       role: "Co-researcher", team: "2 designers, Stanford d.school", time: "Fall 2026",
-      methods: "Participant observation, interviews, double-layered Venn diagram, needs hierarchy",
+      methods: "Observation, interviews, synthesis, frameworks, insight translation, needs hierarchy",
       lede: "An immersion study of a Bay Area live-action role-play community, through interviews and playing alongside its players.", full: true },
     { id: "student-study", h: 280, glyph: "grid", title: "College student study", status: "In progress",
       client: "Personal project",
@@ -44,11 +44,13 @@
       methods: "To add",
       lede: "A self-directed needfinding project with college students." },
     { id: "sunrise", h: 44, glyph: "sun", title: "Sunrise Senior Living", status: "In progress",
+      thumb: "images/sunrise/thumb.png", hero: "images/sunrise/hero.png", heroFit: true, heroBg: "#ffffff", logo: true,
+      heroAlt: "Sunrise Senior Living logo",
       client: "Sunrise Senior Living",
       line: "Needfinding in a senior living community.",
       tags: ["Field research"],
-      role: "To add", team: "To add", time: "Ongoing",
-      methods: "To add",
+      role: "Research lead", team: "4 designers, Stanford d.school", time: "Fall 2026",
+      methods: "Interviews, synthesis, frameworks, insight translation, design principles, solutions",
       lede: "Needfinding in a senior living community." },
     { id: "santa-clara", h: 10, glyph: "heat", title: "Santa Clara County", status: "In progress",
       client: "Stanford d.school",
@@ -74,12 +76,12 @@
     return '<li><a class="card" href="#' + p.id + '" data-id="' + p.id + '" style="--i:' + i + ';--h:' + p.h + '">' +
       '<span class="thumb' + (p.logo ? " logo" : "") + '">' + (p.thumb ? '<img src="' + p.thumb + '" alt="">' : G[p.glyph]) + '</span>' +
       '<span style="min-width:0"><span class="card-title">' + esc(p.title) + '</span>' +
-      '<span class="card-line">' + (p.status ? '<span class="status">' + p.status + ' · </span>' : '') + esc(p.line) + '</span></span></a></li>';
+      '<span class="card-line">' + (p.status ? '<span class="status">' + p.status + '</span> · ' : '') + esc(p.line) + '</span></span></a></li>';
   }).join("");
 
   function previewHTML(p) {
     return '<div class="preview" style="--h:' + p.h + '">' +
-      '<div class="preview-tile' + (p.heroFit ? " fit" : "") + '">' + (p.hero ? '<img src="' + p.hero + '" alt="' + esc(p.heroAlt || "") + '">' : G[p.glyph]) + '</div>' +
+      '<div class="preview-tile' + (p.heroFit ? " fit" : "") + '"' + (p.heroBg ? ' style="--fitbg:' + p.heroBg + '"' : '') + '>' + (p.hero ? '<img src="' + p.hero + '" alt="' + esc(p.heroAlt || "") + '">' : G[p.glyph]) + '</div>' +
       '<div class="preview-text"><div><span class="label">' + esc(p.client) + '</span>' +
       '<h2>' + esc(p.title) + '</h2><p>' + esc(p.line) + '</p></div>' +
       '<a class="open" href="#' + p.id + '">' + "Read Case Study" + ' <span aria-hidden="true">→</span></a></div></div>';
@@ -97,12 +99,12 @@
     }
     return '<article class="case" style="--h:' + p.h + '">' +
       '<a class="back" href="#home">← All projects</a>' +
-      '<header class="case-head"><span class="label">' + esc(p.client) + (p.status ? ' · ' + p.status : '') + '</span>' +
+      '<header class="case-head"><span class="label">' + esc(p.client) + (p.status ? ' · <span class="status">' + p.status + '</span>' : '') + '</span>' +
       '<h1>' + esc(p.title) + '</h1><p class="lede">' + p.lede + '</p>' +
       '<dl class="meta"><div><dt>My role</dt><dd>' + esc(p.role) + '</dd></div><div><dt>Team</dt><dd>' + esc(p.team) + '</dd></div>' +
       '<div><dt>Timeline</dt><dd>' + esc(p.time) + '</dd></div><div><dt>Methods</dt><dd>' + esc(p.methods) + '</dd></div></dl></header>' +
       (p.pageHero ? '<figure class="hero"><img src="' + p.pageHero + '" alt="' + esc(p.pageHeroAlt || "") + '"></figure>'
-       : p.hero ? '<figure class="hero' + (p.heroFit ? " fit" : "") + '"><img src="' + p.hero + '" alt="' + esc(p.heroAlt || "") + '"></figure>'
+       : p.hero ? '<figure class="hero' + (p.heroFit ? " fit" : "") + '"' + (p.heroBg ? ' style="--fitbg:' + p.heroBg + '"' : '') + '><img src="' + p.hero + '" alt="' + esc(p.heroAlt || "") + '"></figure>'
                 : '<figure class="ph tall">Hero image for ' + esc(p.title) + '</figure>') + body +
       '<div class="next"><a href="#home">All projects</a><a href="#' + next.id + '">Next: ' + esc(next.title) + ' →</a></div></article>';
   }
