@@ -43,7 +43,7 @@
       line: "A self-directed needfinding project with college students.",
       tags: ["Interviews"],
       role: "Sole researcher", team: "1", time: "Ongoing",
-      methods: "To add",
+      methods: "Interviews, synthesis, frameworks, insight translation, design principles, solutions",
       lede: "A self-directed needfinding project with college students." },
     { id: "sunrise", h: 44, glyph: "sun", title: "Sunrise Senior Living", status: "In progress",
       thumb: "images/sunrise/thumb.png", hero: "images/sunrise/hero.png", heroFit: true, heroBg: "#ffffff", logo: true,
@@ -61,8 +61,8 @@
       client: "Stanford d.school",
       line: "Reducing deaths and hospitalizations during heat waves.",
       tags: ["Desk research", "Systems design"],
-      role: "To add", team: "To add", time: "Fall 2026, ongoing",
-      methods: "To add",
+      role: "Design lead", team: "3 designers, Stanford d.school", time: "Fall 2026, ongoing",
+      methods: "Interviews, synthesis, insight translation, prototyping, user testing",
       lede: "How can we reduce deaths and hospitalizations in Santa Clara County during heat waves?" }
   ];
 
@@ -89,7 +89,7 @@
       '<div class="preview-tile' + (p.heroFit ? " fit" : "") + (p.pixel ? " pixel" : "") + '"' + (p.heroBg ? ' style="--fitbg:' + p.heroBg + '"' : '') + '>' + (p.hero ? '<img src="' + p.hero + '" alt="' + esc(p.heroAlt || "") + '">' : G[p.glyph]) + '</div>' +
       '<div class="preview-text"><div><span class="label">' + esc(p.client) + '</span>' +
       '<h2>' + esc(p.title) + '</h2><p>' + esc(p.line) + '</p></div>' +
-      '<a class="open" href="#' + p.id + '">' + "Read Case Study" + ' <span aria-hidden="true">→</span></a></div></div>';
+      '<a class="open" href="#' + p.id + '">' + (p.status ? "View Progress" : "Read Case Study") + ' <span aria-hidden="true">→</span></a></div></div>';
   }
 
   var TEMPLATE_SECTIONS = ["Context and user group", "Research", "Synthesis", "Insight", "Needs", "Solution, prototyping and result, where they apply"];
