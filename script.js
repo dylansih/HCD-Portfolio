@@ -20,7 +20,7 @@
       lede: 'Founders already want to mentor. What stops them is time.', full: true },
     { id: "whats-nest", h: 24, glyph: "nest", title: "What's Nest",
       thumb: "images/whats-nest/thumb.png", hero: "images/whats-nest/hero.jpg",
-      heroAlt: "What's Nest home screen with activities and career paths",
+      heroAlt: "What's Nest home screen on a desktop monitor, with hands at the keyboard",
       client: "Stanford d.school",
       line: "An app for mothers whose children have just left home.",
       tags: ["Interviews", "Personas", "Figma prototype"],
