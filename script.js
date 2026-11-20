@@ -37,6 +37,8 @@
       methods: "Observation, interviews, synthesis, frameworks, insight translation, needs hierarchy",
       lede: "An immersion study of a Bay Area live-action role-play community, through interviews and playing alongside its players.", full: true },
     { id: "student-study", h: 280, glyph: "grid", title: "College student study", status: "In progress",
+      thumb: "images/student-study/thumb.png", hero: "images/student-study/hero.png", pixel: true,
+      heroAlt: "The man and woman pixel characters from the Wander game, standing side by side",
       client: "Personal project",
       line: "A self-directed needfinding project with college students.",
       tags: ["Interviews"],
@@ -51,8 +53,11 @@
       tags: ["Field research"],
       role: "Research lead", team: "4 designers, Stanford d.school", time: "Fall 2026",
       methods: "Interviews, synthesis, frameworks, insight translation, design principles, solutions",
+      sections: ["Context and user group", "Research", "Analysis", "Synthesis", "Insight", "Needs", "Design principles", "Solutions, prototyping and result, where they apply"],
       lede: "Needfinding in a senior living community." },
     { id: "santa-clara", h: 10, glyph: "heat", title: "Santa Clara County", status: "In progress",
+      thumb: "images/santa-clara/thumb.png", hero: "images/santa-clara/hero.png", heroFit: true, heroBg: "#ffffff", logo: true,
+      heroAlt: "Santa Clara County Public Health logo",
       client: "Stanford d.school",
       line: "Reducing deaths and hospitalizations during heat waves.",
       tags: ["Desk research", "Systems design"],
@@ -74,14 +79,14 @@
   document.getElementById("count").textContent = P.length;
   stack.innerHTML = P.map(function (p, i) {
     return '<li><a class="card" href="#' + p.id + '" data-id="' + p.id + '" style="--i:' + i + ';--h:' + p.h + '">' +
-      '<span class="thumb' + (p.logo ? " logo" : "") + '">' + (p.thumb ? '<img src="' + p.thumb + '" alt="">' : G[p.glyph]) + '</span>' +
+      '<span class="thumb' + (p.logo ? " logo" : "") + (p.pixel ? " pixel" : "") + '">' + (p.thumb ? '<img src="' + p.thumb + '" alt="">' : G[p.glyph]) + '</span>' +
       '<span style="min-width:0"><span class="card-title">' + esc(p.title) + '</span>' +
       '<span class="card-line">' + (p.status ? '<span class="status">' + p.status + '</span> · ' : '') + esc(p.line) + '</span></span></a></li>';
   }).join("");
 
   function previewHTML(p) {
     return '<div class="preview" style="--h:' + p.h + '">' +
-      '<div class="preview-tile' + (p.heroFit ? " fit" : "") + '"' + (p.heroBg ? ' style="--fitbg:' + p.heroBg + '"' : '') + '>' + (p.hero ? '<img src="' + p.hero + '" alt="' + esc(p.heroAlt || "") + '">' : G[p.glyph]) + '</div>' +
+      '<div class="preview-tile' + (p.heroFit ? " fit" : "") + (p.pixel ? " pixel" : "") + '"' + (p.heroBg ? ' style="--fitbg:' + p.heroBg + '"' : '') + '>' + (p.hero ? '<img src="' + p.hero + '" alt="' + esc(p.heroAlt || "") + '">' : G[p.glyph]) + '</div>' +
       '<div class="preview-text"><div><span class="label">' + esc(p.client) + '</span>' +
       '<h2>' + esc(p.title) + '</h2><p>' + esc(p.line) + '</p></div>' +
       '<a class="open" href="#' + p.id + '">' + "Read Case Study" + ' <span aria-hidden="true">→</span></a></div></div>';
@@ -94,8 +99,8 @@
     if (p.full) {
       body = document.getElementById("tpl-" + p.id).innerHTML;
     } else {
-      body = '<section class="sec"><h2>Write-up</h2><div class="body"><p class="todo">This case study is being written. It will follow the same structure as the others:</p>' +
-        '<ul class="needs">' + TEMPLATE_SECTIONS.map(function (s) { return '<li class="todo">' + s + '</li>'; }).join("") + '</ul></div></section>';
+      body = '<section class="sec"><h2>Write-up</h2><div class="body"><p class="todo">This case study is still in progress.</p>' +
+        '<ul class="needs">' + (p.sections || TEMPLATE_SECTIONS).map(function (s) { return '<li class="todo">' + s + '</li>'; }).join("") + '</ul></div></section>';
     }
     return '<article class="case" style="--h:' + p.h + '">' +
       '<a class="back" href="#home">← All projects</a>' +
@@ -104,7 +109,7 @@
       '<dl class="meta"><div><dt>My role</dt><dd>' + esc(p.role) + '</dd></div><div><dt>Team</dt><dd>' + esc(p.team) + '</dd></div>' +
       '<div><dt>Timeline</dt><dd>' + esc(p.time) + '</dd></div><div><dt>Methods</dt><dd>' + esc(p.methods) + '</dd></div></dl></header>' +
       (p.pageHero ? '<figure class="hero"><img src="' + p.pageHero + '" alt="' + esc(p.pageHeroAlt || "") + '"></figure>'
-       : p.hero ? '<figure class="hero' + (p.heroFit ? " fit" : "") + '"' + (p.heroBg ? ' style="--fitbg:' + p.heroBg + '"' : '') + '><img src="' + p.hero + '" alt="' + esc(p.heroAlt || "") + '"></figure>'
+       : p.hero ? '<figure class="hero' + (p.heroFit ? " fit" : "") + (p.pixel ? " pixel" : "") + '"' + (p.heroBg ? ' style="--fitbg:' + p.heroBg + '"' : '') + '><img src="' + p.hero + '" alt="' + esc(p.heroAlt || "") + '"></figure>'
                 : '<figure class="ph tall">Hero image for ' + esc(p.title) + '</figure>') + body +
       '<div class="next"><a href="#home">All projects</a><a href="#' + next.id + '">Next: ' + esc(next.title) + ' →</a></div></article>';
   }
