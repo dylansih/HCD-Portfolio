@@ -28,6 +28,8 @@
       methods: "Interviews, clustering, empathy map, 2x2s, journey map, prototype tests",
       lede: "For new empty nesters, belonging didn't come from meeting more people. It came from having someone to care for.", full: true },
     { id: "larp", h: 152, glyph: "shield", title: "Moccasins: LARP",
+      thumb: "images/larp/thumb.jpg", hero: "images/larp/hero.jpg",
+      heroAlt: "LARP players with foam swords and shields heading across a park field at golden hour",
       client: "Stanford d.school",
       line: "Immersion with a live-action role-play community.",
       tags: ["Immersion", "Observation", "Interviews"],
